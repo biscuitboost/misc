@@ -25,3 +25,19 @@ def execute_query(query, params=()):
     finally:
         if conn:
             conn.close()
+
+def check_diary_name_exists(diary_name):
+    """Check if a diary name already exists in the database."""
+    query = "SELECT EXISTS(SELECT 1 FROM disposal_diary_info WHERE diary_name = ?)"
+    try:
+        conn = create_connection()
+        cur = conn.cursor()
+        cur.execute(query, (diary_name,))
+        exists = cur.fetchone()[0]
+        return exists
+    except Error as e:
+        print(f"Error checking diary name existence: {e}")
+        return None
+    finally:
+        if conn:
+            conn.close()
