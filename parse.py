@@ -1,6 +1,6 @@
-import csv
+import sys
 import datetime
-from db_manager import execute_query
+from db_manager import execute_query, check_diary_name_exists
 
 def validate_header_and_footer(header, footer, record_count):
     """Validate the file header and footer."""
@@ -8,7 +8,12 @@ def validate_header_and_footer(header, footer, record_count):
     return True
 
 def insert_disposal_diary_info(diary_name, record_count):
-    """Insert metadata about a disposal diary and return its ID."""
+    """Insert metadata about a disposal diary and return its ID, or handle duplicates."""
+    # Check if the diary name already exists
+    if check_diary_name_exists(diary_name):
+        print(f"Diary name '{diary_name}' already exists. Exiting to prevent duplicates.")
+        sys.exit(1)  # Exit the script to prevent further processing
+    
     load_date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     insert_query = """INSERT INTO disposal_diary_info (diary_name, load_date, record_count) VALUES (?, ?, ?);"""
     diary_id = execute_query(insert_query, (diary_name, load_date, record_count))
