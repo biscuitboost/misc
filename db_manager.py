@@ -41,3 +41,37 @@ def check_diary_name_exists(diary_name):
     finally:
         if conn:
             conn.close()
+
+def view_disposal_diaries():
+    """View all disposal diaries."""
+    query = "SELECT * FROM disposal_diary_info"
+    try:
+        conn = create_connection()
+        cur = conn.cursor()
+        cur.execute(query)
+        rows = cur.fetchall()
+        for row in rows:
+            print(row)
+    except Error as e:
+        print(f"Error retrieving diaries: {e}")
+    finally:
+        if conn:
+            conn.close()
+
+def delete_disposal_diary(diary_id):
+    """Delete a disposal diary and its records."""
+    delete_info_query = "DELETE FROM disposal_diary_info WHERE diary_id = ?"
+    delete_records_query = "DELETE FROM disposal_diary_records WHERE diary_info_id = ?"
+    try:
+        conn = create_connection()
+        cur = conn.cursor()
+        cur.execute(delete_records_query, (diary_id,))
+        cur.execute(delete_info_query, (diary_id,))
+        conn.commit()
+        log_action('DELETE', f'Deleted diary and records for diary_id {diary_id}')
+    except Error as e:
+        print(f"Error deleting diary: {e}")
+    finally:
+        if conn:
+            conn.close()
+
