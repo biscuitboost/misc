@@ -8,16 +8,20 @@ def validate_header_and_footer(header, footer, record_count):
     return True
 
 def insert_disposal_diary_info(diary_name, record_count):
-    """Insert metadata about a disposal diary and return its ID, or handle duplicates."""
-    # Check if the diary name already exists
-    if check_diary_name_exists(diary_name):
-        print(f"Diary name '{diary_name}' already exists. Exiting to prevent duplicates.")
-        sys.exit(1)  # Exit the script to prevent further processing
-    
+    """
+    Insert metadata about a disposal diary and return its ID, or handle duplicates.
+    """
     load_date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    insert_query = """INSERT INTO disposal_diary_info (diary_name, load_date, record_count) VALUES (?, ?, ?);"""
-    diary_id = execute_query(insert_query, (diary_name, load_date, record_count))
+    # Assuming 'notes' is an optional field you might want to include
+    notes = "Some notes about the diary"
+    
+    # Ensure the number of parameters matches the placeholders in your SQL statement
+    insert_query = """INSERT INTO disposal_diary_info (diary_name, load_date, record_count, notes) VALUES (?, ?, ?, ?);"""
+    
+    # Corrected to include all necessary parameters
+    diary_id = execute_query(insert_query, (diary_name, load_date, record_count, notes))
     return diary_id
+
     
 def parse_disposal_diary(file_path):
     """Parse the disposal diary file and load records into the database."""
