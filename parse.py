@@ -1,10 +1,24 @@
+import argparse
 import sys
 import datetime
+import logging
 from db_manager import execute_query, check_diary_name_exists
+
+
+logging.basicConfig(filename='disposal_diary_processor.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+def log_action(action, description):
+    """Log actions taken by the script."""
+    logging.info(f'{action}: {description}')
 
 def validate_header_and_footer(header, footer, record_count):
     """Validate the file header and footer."""
-    # Implement validation logic based on the project requirements
+    header_prefix, _ = header.split(',', 1)
+    footer_prefix, footer_content = footer.split(',', 1)
+    footer_count = int(footer_content.split(',')[1])
+    
+    if header_prefix != 'H' or footer_prefix != 'T' or footer_count != record_count:
+        return False
     return True
 
 def insert_disposal_diary_info(diary_name, record_count):
@@ -53,6 +67,26 @@ def parse_disposal_diary(file_path):
 
     except Exception as e:
         print(f"Error processing disposal diary file: {e}")
+
+def main():
+    parser = argparse.ArgumentParser(description="Disposal Diary Processor")
+    parser.add_argument('--file', help="Path to disposal diary file for processing.")
+    parser.add_argument('--view', action='store_true', help="View all disposal diaries.")
+    parser.add_argument('--delete', type=int, help="Diary ID to delete.")
+    
+    args = parser.parse_args()
+
+    if args.view:
+        view_disposal_diaries()
+    elif args.delete:
+        delete_disposal_diary(args.delete)
+    elif args.file:
+        parse_disposal_diary(args.file)
+    else:
+        print("No action specified. Use --help for more information.")
+
+if __name__ == "__main__":
+    main()
 
 if __name__ == "__main__":
     # Example usage
