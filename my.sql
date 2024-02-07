@@ -1,12 +1,12 @@
 -- Table for storing metadata about each disposal diary processed
-CREATE TABLE IF NOT EXISTS disposal_diary_info (
+CREATE TABLE disposal_diary_info (
     diary_id INTEGER PRIMARY KEY AUTOINCREMENT,
     diary_name TEXT NOT NULL,
     load_date TEXT NOT NULL,
     record_count INTEGER,
-    notes TEXT
-);
-
+    notes TEXT, 
+    status INTEGER)
+    
 -- Table for storing disposal diary records, updated to include a reference to the disposal_diary_info
 CREATE TABLE IF NOT EXISTS disposal_diary_records (
     record_id INTEGER PRIMARY KEY AUTOINCREMENT,
