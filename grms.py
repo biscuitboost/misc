@@ -74,7 +74,7 @@ def get_field_mappings(idr_col_name=None):
     else:
         query = "SELECT actual_col_name FROM column_lookup WHERE idr_col_name = ?"
         results = execute_select_query(query, (idr_col_name,))
-        log_action(f'Field mappings lookup{idr_col_name}: {results}')
+        log_action(f'Field mappings lookup ({idr_col_name}): {results}')
         return results[0][0] if results else None
     
 def get_ag_mappings(tbl_name=None):
@@ -87,7 +87,7 @@ def get_ag_mappings(tbl_name=None):
     else:
         query = "SELECT actual_folder_name FROM folder_lookup WHERE tbl_name = ?"
         results = execute_select_query(query, (tbl_name,))
-        log_action(f'AG mappings lookup{tbl_name}: {results}')
+        log_action(f'AG mappings lookup ({tbl_name}): {results}')
         return results[0][0] if results else None
     
 def delete_field_mapping(idr_col_name):
@@ -307,13 +307,11 @@ def parse_disposal_diary(file_path):
                     delete_disposal_diary(diary_id)
                     log_action(f'Deleted diary and records for diary_id {diary_id}')
                     
-
     except Exception as e:
         log_action(f'Error processing disposal diary file: {e}', 'ERROR')
 
 def check_records_exist():
-    """Check if diary records exist in CMOD.
-    update found flag to 1 in disposal_diary_records"""
+    # get diary records and write to cmod_parameter_file
     diary_data = get_disposal_diary_records()
     if diary_data:
         diary_id = diary_data['diary_id']
@@ -321,7 +319,7 @@ def check_records_exist():
         records = diary_data['records']
         log_action(f'Loaded diary found: {diary_name} with {len(records)} records')
         for record in records:
-            
+            record_id = record[0]
             tbl_name = record[7]
             idr_col_name = record[9]
             idr_value = record[10]
@@ -330,20 +328,30 @@ def check_records_exist():
             field_name = get_field_mappings(idr_col_name)
             field_value = idr_value
 
-            # run CMOD arsdoc get to check if record exists
-            #output = subprocess.run(['arsdoc', 'get', '-f', application_group, '-d', field_name, '-v', field_value], capture_output=True, text=True)
-            output = subprocess.run(['echo', 'arsdoc', 'get', '-f', application_group, '-d', field_name, '-v', field_value], capture_output=True, text=True)
-            if output.returncode == 0:
-                log_action(f'Record found in CMOD: {field_name} = {field_value}')
-                update_query = "UPDATE disposal_diary_records SET found = 1 WHERE diary_info_id = ? AND tbl_name = ? AND idr_col_name = ? AND idr_value = ?"
-                execute_query(update_query, (diary_id, tbl_name, idr_col_name, idr_value))
-            else:
-                log_action(f'Record not found in CMOD: {field_name} = {field_value}')
+            num_rows = lookup_record(application_group, field_name, field_value)
+            update_diary_record(record_id, 'found', num_rows)
     else:
         log_action(f'Error retrieving diary records', 'ERROR')
         return None
-   
+    
+def lookup_record(app_grp, field_name, field_value):
+    """Lookup a record in CMOD based on the application group, field name, and field value."""
+    print(f'Lookup record: {app_grp},{field_name},{field_value}')
+    num_rows=3
+    return num_rows
 
+def update_diary_record(record_id, field, value):
+    """Update disposal record field with value."""
+    update_query = f"""UPDATE disposal_diary_records SET {field} = ? WHERE record_id = ?;"""
+    rows = execute_query(update_query, (value, record_id))
+    if rows is not None:
+        log_action(f'Updated {rows} record: {field} -> {value}')
+        return rows
+    else:
+        log_action(f'Error updating record: {field} -> {value}', 'ERROR')
+        return None
+
+    
 def main():
     parser = argparse.ArgumentParser(description="Disposal Diary Processor")
     # Disposal Diary functions
@@ -366,7 +374,7 @@ def main():
     if args.view_diary:
         view_disposal_diaries()
     elif args.check_records_exist:
-        print(check_records_exist())
+        check_records_exist()
     elif args.delete_diary:
         delete_disposal_diary(args.delete_diary)
     elif args.load_diary:
