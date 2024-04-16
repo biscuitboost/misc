@@ -1,20 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Directory Analysis</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>DMS Data Directories</title>
+    <meta name="description" content="A pure HTML example, without dependencies." />
     <!-- Include DataTables CSS and jQuery -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <!-- include picocss -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 </head>
 <body>
-    <h1>Directory Analysis</h1>
+    <header class="container">
+        <hgroup>
+    <h1>DMS Data Directories</h1>
+    <h2>Overview of projects' load directories</h2>
+    </hgroup>
+    </header>
+
+    <main class="container">
     <!-- Render the DataFrame table -->
-    {{ table|safe }}
+    <div class="overflow-auto">
+        {{ table|safe }}
+    </div>
     <br>
     <a href="/download">Download Excel File</a>
     
+    </main>
     <script>
     // Initialize DataTables
     $(document).ready( function () {
