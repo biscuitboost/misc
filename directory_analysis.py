@@ -18,14 +18,10 @@ def get_folder_size(directory):
                 print(f"Error accessing file size for {filepath}: {e}")
     return round(total_size / (1024 * 1024), 2)  # Convert bytes to megabytes
 
-def load_inclusions(file_path):
-    """Load inclusion list from a file."""
-    try:
-        with open(file_path, 'r') as file:
-            return {line.strip() for line in file if line.strip()}
-    except FileNotFoundError:
-        print(f"No inclusion file found at {file_path}. Proceeding with no inclusions.")
-        return set()
+def load_inclusions(inclusion_file):
+    """Load inclusions from a CSV file."""
+    inclusions = pd.read_csv(inclusion_file)
+    return inclusions.to_dict('records')
 
 def analyze_filetypes(directory):
     """Analyze the directory for file statistics at the top level only."""
@@ -64,7 +60,7 @@ def analyze_directory(directory):
         oldest_file_age = 0
 
     result = {
-        'Directory': directory,
+        #'Directory': directory,
         'Total Files': total_files,
         'Folder Size (MB)': folder_size_mb,
         'Newest File Age (Days)': newest_file_age,
@@ -77,16 +73,26 @@ def analyze_directory(directory):
 def run_analysis(inclusion_file):
     inclusions = load_inclusions(inclusion_file)
     results = []
-    for included_path in inclusions:
+    for inclusion in inclusions:
+        included_path = inclusion['Directory']  # Assuming 'directory' is the column name for the directory path
         if os.path.isdir(included_path):
-            results.append(analyze_directory(included_path))
+            result = analyze_directory(included_path)
+            result.update(inclusion)  # Add additional data from the inclusion
+            results.append(result)
         else:
             print(f"Path is not a directory or not accessible: {included_path}")
-    return pd.DataFrame(results)
+    df = pd.DataFrame(results)
+
+    # Reorder the columns
+    config_columns = list(inclusions[0].keys())  # Get the column names from the config
+    other_columns = [col for col in df.columns if col not in config_columns]  # Get the other column names
+    df = df[config_columns + other_columns]  # Concatenate the lists and reorder the columns
+
+    return df
 
 def setup_args():
     """Setup arguments for the Flask call"""
     class Args:
-        inclusion_file = 'inclusions.txt'  # Path to your inclusions file
+        inclusion_file = 'config.txt'  # Path to your inclusions file
     return Args()
 
