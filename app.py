@@ -1,54 +1,60 @@
-from flask import Flask, render_template, send_file
-from directory_analysis import run_analysis, setup_args  # make sure this import is correct
+from flask import Flask, render_template, send_file, request
+from directory_analysis import run_analysis, setup_args, save_analysis_results 
 from apscheduler.schedulers.background import BackgroundScheduler
 import pandas as pd
 import os
+from datetime import datetime
+
 
 app = Flask(__name__)
 scheduler = BackgroundScheduler()
-DATA_FILE="~directory_analysis.tmp"
-
-# Save the analysis results to a CSV file
-def save_analysis_results(filename):
-    args = setup_args()
-    df = run_analysis(args.inclusion_file)
-    # check size of df
-    if len(df) > 0:
-        df.to_csv(filename, index=False)  # Save results to CSV
-        return filename
-    else:
-        print('No data to save')
-        return None
 
 # Scheduled task to run the analysis every 15 minutes
-scheduler.add_job(func=save_analysis_results, args=[DATA_FILE], trigger="interval", minutes=10)
+scheduler.add_job(func=save_analysis_results, args=['.sit_dir_data.tmp', 'config/sit.cfg'], trigger="interval", minutes=10)
+scheduler.add_job(func=save_analysis_results, args=['.uat_dir_data.tmp', 'config/uat.cfg'], trigger="interval", minutes=10)
+scheduler.add_job(func=save_analysis_results, args=['.prod_dir_data.tmp', 'config/prod.cfg'], trigger="interval", minutes=10)
 scheduler.start()
 
 @app.route('/')
 def index():
-    args = setup_args()  # Setup and retrieve arguments
-    #df = run_analysis(args.inclusion_file)  # Pass the correct string attribute for the file path
+    env = request.args.get('ENV')
+    if not env:
+        env = 'SIT'
+    
+    args = setup_args(env.upper())
+    DATA_FILE=(args.DATA_FILE)
+    directory_list=(args.directory_list)
+
     # if csv file exists, load it
     if os.path.exists(DATA_FILE):
         df = pd.read_csv(DATA_FILE)  # Load the analysis results from the file
         df = df.fillna('')  # Replace NaN values with an empty string
-        return render_template('index.html', table=df.to_html(classes='data', header="true"))
+
+        # Get the last modified date of the file
+        last_updated = datetime.fromtimestamp(os.path.getmtime(args.DATA_FILE)).strftime('%Y-%m-%d %H:%M:%S')
     else:
-        filename = save_analysis_results(DATA_FILE)
+        filename = save_analysis_results(DATA_FILE, directory_list)
         if filename:
             df = pd.read_csv(filename)  # Load the analysis results from the file
             df = df.fillna('')  # Replace NaN values with an empty string
-            return render_template('index.html', table=df.to_html(classes='data', header="true"))
+
+            # Get the last modified date of the file
+            last_updated = datetime.fromtimestamp(os.path.getmtime(filename)).strftime('%Y-%m-%d %H:%M:%S')
         else:
-            return "No analysis results available."
+            df = pd.DataFrame()
+            last_updated = "No data available"
 
-
+    return render_template('index.html', table=df.to_html(classes='data', header="true"), last_updated=last_updated, ENV=env.upper())
 
 @app.route('/download')
 def download():
-    args = setup_args()
-    df = run_analysis(args.inclusion_file)  # Run analysis and get DataFrame
-    filepath = 'analysis_results.xlsx'
+    env = request.args.get('ENV')
+    if not env:
+        env = 'SIT'
+    args = setup_args(env.upper())
+
+    df = run_analysis(args.directory_list)  # Run analysis and get DataFrame
+    filepath = args.xlsx_export
     df.to_excel(filepath, index=False)
     return send_file(filepath, as_attachment=True)
 
