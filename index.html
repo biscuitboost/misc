@@ -15,27 +15,79 @@
 </head>
 <body>
     <header class="container">
-        <hgroup>
-    <h1>DMS Data Directories</h1>
-    <h2>Overview of projects' load directories</h2>
-    </hgroup>
+        <nav>
+            <ul>
+              <li><strong>DMS Data Directories ({{ ENV }})</strong></li>
+            </ul>
+            <ul>
+              <li>
+                <details class="dropdown">
+                    <summary>Environment</summary>
+                    <ul>
+                      <li><a href="/?ENV=SIT">SIT</a></li>
+                      <li><a href="/?ENV=UAT">UAT</a></li>
+                      <li><a href="/?ENV=PROD">PROD</a></li>
+                    </ul>
+                  </details>
+              </li>
+            </ul>
+          </nav>
     </header>
 
     <main class="container">
-    <!-- Render the DataFrame table -->
-    <div class="overflow-auto">
-        {{ table|safe }}
-    </div>
-    <br>
-    <a href="/download">Download Excel File</a>
     
+    <div class="tab">
+        <button class="tablinks" onclick="openApp(event, 'All')">All</button>
+        <button class="tablinks" onclick="openApp(event, 'CMOD')">CMOD</button>
+        <button class="tablinks" onclick="openApp(event, 'AS')">Activestore</button>
+      </div>
+      
+    <!-- Render the DataFrame table -->
+
+    <div id="tableContainer" class="tabcontent">
+        <div class="overflow-auto">
+            {{ table|safe }}
+        </div>
+    </div>
+    
+    <br>
+    <a href="/download?ENV={{ENV}}">Download</a>
+    <p>Last updated: {{ last_updated }}</p>
     </main>
     <script>
-    // Initialize DataTables
-    $(document).ready( function () {
-        $('.data').DataTable();
-    } );
-    </script>
+    function openApp(evt, appName) {
+        var i, tablinks;
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        evt.currentTarget.className += " active";
+
+        // Filter the DataTable based on the appName, or remove all filters if appName is 'All'
+        if (appName === 'All') {
+            $('.data').DataTable().search('').draw();
+        } else {
+            $('.data').DataTable().search(appName).draw();
+        }
+    }
+        
+        // Initialize DataTables
+        $(document).ready( function () {
+            $('.data').DataTable({
+                "columnDefs": [
+                    { "visible": false, "targets": 0 }  // Hide the first column
+                ],
+                "order": [[ 5, "desc" ]],  // Set the initial sort to the second column (Total Files) in descending order
+                "pageLength": -1,  // Set the default display length to 25 rows
+                "lengthChange": false  // Remove the "Show" filter
+
+            });
+        
+            // filter so that DMS column only shows 'CMOD'
+            //$('.data').DataTable().column(3).search('CMOD').draw();
+            $('table.data thead').attr('data-theme', 'dark');
+        } );
+        </script>
 </body>
 </html>
 
