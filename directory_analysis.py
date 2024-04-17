@@ -18,10 +18,10 @@ def get_folder_size(directory):
                 print(f"Error accessing file size for {filepath}: {e}")
     return round(total_size / (1024 * 1024), 2)  # Convert bytes to megabytes
 
-def load_inclusions(inclusion_file):
-    """Load inclusions from a CSV file."""
-    inclusions = pd.read_csv(inclusion_file)
-    return inclusions.to_dict('records')
+def load_directories(directory_list):
+    """Load directories from a CSV file."""
+    directories = pd.read_csv(directory_list)
+    return directories.to_dict('records')
 
 def analyze_filetypes(directory):
     """Analyze the directory for file statistics at the top level only."""
@@ -70,29 +70,55 @@ def analyze_directory(directory):
     result.update(filetypes)  # Add filetypes to the result
     return result
 
-def run_analysis(inclusion_file):
-    inclusions = load_inclusions(inclusion_file)
+def run_analysis(directory_list):
+    directories = load_directories(directory_list)
     results = []
-    for inclusion in inclusions:
-        included_path = inclusion['Directory']  # Assuming 'directory' is the column name for the directory path
+    for directory in directories:
+        included_path = directory['Directory']  # Assuming 'directory' is the column name for the directory path
         if os.path.isdir(included_path):
             result = analyze_directory(included_path)
-            result.update(inclusion)  # Add additional data from the inclusion
+            result.update(directory)  # Add additional data from the directory
             results.append(result)
         else:
             print(f"Path is not a directory or not accessible: {included_path}")
     df = pd.DataFrame(results)
 
     # Reorder the columns
-    config_columns = list(inclusions[0].keys())  # Get the column names from the config
+    config_columns = list(directories[0].keys())  # Get the column names from the config
     other_columns = [col for col in df.columns if col not in config_columns]  # Get the other column names
     df = df[config_columns + other_columns]  # Concatenate the lists and reorder the columns
 
     return df
 
-def setup_args():
+# Save the analysis results to a CSV file
+def save_analysis_results(filename, directory_list):
+    df = run_analysis(directory_list)
+    # check size of df
+    if len(df) > 0:
+        df.to_csv(filename, index=False)  # Save results to CSV
+        return filename
+    else:
+        print('No data to save')
+        return None
+
+def setup_args(env='SIT'):
     """Setup arguments for the Flask call"""
     class Args:
-        inclusion_file = 'config.txt'  # Path to your inclusions file
+        if env == 'SIT':
+            directory_list = 'config/sit.cfg'
+            DATA_FILE=".sit_dir_data.tmp"
+            xlsx_export = 'analysis_results_sit.xlsx'
+        elif env == 'UAT':
+            directory_list = 'config/uat.cfg'
+            DATA_FILE=".uat_dir_data.tmp"
+            xlsx_export = 'analysis_results_uat.xlsx'
+        elif env == 'PROD':
+            directory_list = 'config/prod.cfg'
+            DATA_FILE=".prod_dir_data.tmp"
+            xlsx_export = 'analysis_results_prod.xlsx'
+        else:
+            directory_list = 'config/sit.cfg'  # Default to SIT
+            DATA_FILE=".sit_dir_data.tmp"
+            xlsx_export = 'analysis_results_sit.xlsx'
     return Args()
 
