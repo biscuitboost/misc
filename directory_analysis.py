@@ -116,24 +116,24 @@ def save_analysis_results(filename, directory_list):
         print('No data to save')
         return None
 
-def setup_args(env='SIT'):
+def setup_args(env):
     """Setup arguments for the Flask call"""
     class Args:
         if env == 'SIT':
             directory_list = 'config/sit.cfg'
-            DATA_FILE=".sit_dir_data.tmp"
+            data_file=".sit_dir_data.tmp"
             xlsx_export = 'analysis_results_sit.xlsx'
         elif env == 'UAT':
             directory_list = 'config/uat.cfg'
-            DATA_FILE=".uat_dir_data.tmp"
+            data_file=".uat_dir_data.tmp"
             xlsx_export = 'analysis_results_uat.xlsx'
         elif env == 'PROD':
             directory_list = 'config/prod.cfg'
-            DATA_FILE=".prod_dir_data.tmp"
+            data_file=".prod_dir_data.tmp"
             xlsx_export = 'analysis_results_prod.xlsx'
         else:
             directory_list = 'config/sit.cfg'  # Default to SIT
-            DATA_FILE=".sit_dir_data.tmp"
+            data_file=".sit_dir_data.tmp"
             xlsx_export = 'analysis_results_sit.xlsx'
     return Args()
 
