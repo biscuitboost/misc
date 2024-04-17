@@ -1,4 +1,5 @@
-from flask import Flask, render_template, send_file, request
+#app.py
+from flask import Flask, render_template, send_file, request, redirect, url_for
 from directory_analysis import run_analysis, setup_args, save_analysis_results 
 from apscheduler.schedulers.background import BackgroundScheduler
 import pandas as pd
@@ -17,15 +18,32 @@ scheduler.start()
 
 @app.route('/')
 def index():
-    env = request.args.get('ENV')
-    if not env:
-        env = 'SIT'
-    
-    args = setup_args(env.upper())
+    # 301 redirect to /SIT
+    return redirect(url_for('index_sit'))
+
+@app.route('/sit')
+def index_sit():
+    env = 'SIT'
+    table, last_updated = load_csv_data(env)
+    return render_template('index.html', table=table, last_updated=last_updated, ENV=env.upper())
+
+@app.route('/uat')
+def index_uat():
+    env = 'UAT'
+    table, last_updated = load_csv_data(env)
+    return render_template('index.html', table=table, last_updated=last_updated, ENV=env.upper())
+
+@app.route('/prod')
+def index_prod():
+    env = 'PROD'
+    table, last_updated = load_csv_data(env)
+    return render_template('index.html', table=table, last_updated=last_updated, ENV=env.upper())
+
+
+def load_csv_data(env):
+    args = setup_args(env)
     DATA_FILE=(args.DATA_FILE)
     directory_list=(args.directory_list)
-
-    # if csv file exists, load it
     if os.path.exists(DATA_FILE):
         df = pd.read_csv(DATA_FILE)  # Load the analysis results from the file
         df = df.fillna('')  # Replace NaN values with an empty string
@@ -43,8 +61,7 @@ def index():
         else:
             df = pd.DataFrame()
             last_updated = "No data available"
-
-    return render_template('index.html', table=df.to_html(classes='data', header="true"), last_updated=last_updated, ENV=env.upper())
+    return df.to_html(classes='data', header="true", escape=False), last_updated
 
 @app.route('/download')
 def download():
