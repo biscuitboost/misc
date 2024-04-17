@@ -24,34 +24,34 @@ def index():
 @app.route('/sit')
 def index_sit():
     env = 'SIT'
-    table, last_updated = load_csv_data(env)
+    args = setup_args(env.upper())
+    table, last_updated = load_csv_data(args.data_file, args.directory_list)
     return render_template('index.html', table=table, last_updated=last_updated, ENV=env.upper())
 
 @app.route('/uat')
 def index_uat():
     env = 'UAT'
-    table, last_updated = load_csv_data(env)
+    args = setup_args(env.upper())
+    table, last_updated = load_csv_data(args.data_file, args.directory_list)    
     return render_template('index.html', table=table, last_updated=last_updated, ENV=env.upper())
 
 @app.route('/prod')
 def index_prod():
     env = 'PROD'
-    table, last_updated = load_csv_data(env)
+    args = setup_args(env.upper())
+    table, last_updated = load_csv_data(args.data_file, args.directory_list)
     return render_template('index.html', table=table, last_updated=last_updated, ENV=env.upper())
 
 
-def load_csv_data(env):
-    args = setup_args(env)
-    DATA_FILE=(args.DATA_FILE)
-    directory_list=(args.directory_list)
-    if os.path.exists(DATA_FILE):
-        df = pd.read_csv(DATA_FILE)  # Load the analysis results from the file
+def load_csv_data(data_file, directory_list):
+    if os.path.exists(data_file):
+        df = pd.read_csv(data_file)  # Load the analysis results from the file
         df = df.fillna('')  # Replace NaN values with an empty string
 
         # Get the last modified date of the file
-        last_updated = datetime.fromtimestamp(os.path.getmtime(args.DATA_FILE)).strftime('%Y-%m-%d %H:%M:%S')
+        last_updated = datetime.fromtimestamp(os.path.getmtime(data_file)).strftime('%Y-%m-%d %H:%M:%S')
     else:
-        filename = save_analysis_results(DATA_FILE, directory_list)
+        filename = save_analysis_results(data_file, directory_list)
         if filename:
             df = pd.read_csv(filename)  # Load the analysis results from the file
             df = df.fillna('')  # Replace NaN values with an empty string
@@ -63,11 +63,10 @@ def load_csv_data(env):
             last_updated = "No data available"
     return df.to_html(classes='data', header="true", escape=False), last_updated
 
+# Download DF as an excel spreadsheet
 @app.route('/download')
 def download():
-    env = request.args.get('ENV')
-    if not env:
-        env = 'SIT'
+    env = request.args.get('env')
     args = setup_args(env.upper())
 
     df = run_analysis(args.directory_list)  # Run analysis and get DataFrame
