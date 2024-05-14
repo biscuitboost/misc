@@ -1,113 +1,65 @@
-# DMS Systems Monitoring and Improvement
+# File Transfers (Monitoring)
 
-## Overview
-This document provides an overview of our monitoring and improvement efforts for our Document Management Systems (DMS), including OnDemand CMOD and Activestore. We focus on key areas such as file transfers, infrastructure, data monitoring, alerting, communication, and reporting. Each section includes detailed tasks, performance metrics, and reanalysis procedures to ensure continuous improvement.
-
-## RAG Status Summary
-| Topic                     | Status | Last Reviewed | Link                            |
-|---------------------------|--------|---------------|---------------------------------|
-| File Transfers (Monitoring) | 🟢 Green | YYYY-MM-DD    | [File Transfers (Monitoring)](#file-transfers-monitoring) |
-| Infrastructure (Monitoring) | 🟡 Amber | YYYY-MM-DD    | [Infrastructure (Monitoring)](#infrastructure-monitoring) |
-| Data (Monitoring)          | 🔴 Red   | YYYY-MM-DD    | [Data (Monitoring)](#data-monitoring) |
-| Alerting                   | 🟢 Green | YYYY-MM-DD    | [Alerting](#alerting) |
-| Communication              | 🟡 Amber | YYYY-MM-DD    | [Communication](#communication) |
-| Reporting                  | 🟢 Green | YYYY-MM-DD    | [Reporting](#reporting) |
-
-## Sections
-
-### File Transfers (Monitoring)
-- **Objective:** Ensure all file transfers are successfully sent and received.
-- **Status:** 🟢 Green
-- **Link:** [File Transfers (Monitoring)](#file-transfers-monitoring)
-
-### Infrastructure (Monitoring)
-- **Objective:** Ensure key servers, processes, and databases are operational and performing optimally.
-- **Status:** 🟡 Amber
-- **Link:** [Infrastructure (Monitoring)](#infrastructure-monitoring)
-
-### Data (Monitoring)
-- **Objective:** Detect abnormalities, spikes, missing data, and ensure data reconciliation.
-- **Status:** 🔴 Red
-- **Link:** [Data (Monitoring)](#data-monitoring)
-
-### Alerting
-- **Objective:** Ensure alerting systems work correctly and notify the right people.
-- **Status:** 🟢 Green
-- **Link:** [Alerting](#alerting)
-
-### Communication
-- **Objective:** Ensure sufficient communication for alerting the correct people about outages, improvements, and changes.
-- **Status:** 🟡 Amber
-- **Link:** [Communication](#communication)
-
-### Reporting
-- **Objective:** Provide statistical reporting for services, overall usage, and RAG status.
-- **Status:** 🟢 Green
-- **Link:** [Reporting](#reporting)
-
----
-
-## Detailed Sections
-
-### File Transfers (Monitoring)
-
-#### Objective
+## Objective
 Ensure all file transfers are successfully sent and received.
 
-#### Overview
+## Overview
 Effective monitoring of file transfers is crucial for maintaining data integrity and operational efficiency. This page outlines the tasks, monitoring tools, and reanalysis procedures necessary to achieve this objective.
 
-#### [Read More](file-transfers-monitoring.md)
+## Tasks
 
-### Infrastructure (Monitoring)
+1. **Review Existing Monitoring Tools and Scripts**
+   - Assess the current tools and scripts in use.
+   - Identify any gaps or areas for improvement.
 
-#### Objective
-Ensure key servers, processes, and databases are operational and performing optimally.
+2. **Implement Additional Monitoring**
+   - Deploy new monitoring solutions if necessary.
+   - Ensure comprehensive coverage of all file transfer processes.
 
-#### Overview
-Maintaining the health and performance of our infrastructure is critical to delivering reliable services. This page outlines the tasks, monitoring tools, and reanalysis procedures necessary to achieve this objective.
+3. **Automated Alerts for Failed or Delayed Transfers**
+   - Configure automated alerts for any transfer failures or delays.
+   - Ensure alerts are sent to the relevant personnel promptly.
 
-#### [Read More](infrastructure-monitoring.md)
+4. **Regular Audits of Transfer Logs**
+   - Schedule periodic audits of file transfer logs.
+   - Verify the accuracy and completeness of transfer records.
 
-### Data (Monitoring)
+5. **Review and Update Transfer Protocols**
+   - Evaluate current transfer protocols and procedures.
+   - Make necessary updates to enhance efficiency and reliability.
 
-#### Objective
-Detect abnormalities, spikes, missing data, and ensure data reconciliation.
+## Monitoring Tools
+- **Tool A:** Description and purpose.
+- **Tool B:** Description and purpose.
+- **Tool C:** Description and purpose.
 
-#### Overview
-Monitoring data for inconsistencies and anomalies is essential for maintaining data integrity. This page outlines the tasks, monitoring tools, and reanalysis procedures necessary to achieve this objective.
+## Performance Metrics
+- **Success Rate:** Percentage of successful file transfers.
+- **Transfer Time:** Average time taken to complete transfers.
+- **Failure Rate:** Percentage of failed transfers.
+- **Alert Response Time:** Average time taken to respond to alerts.
 
-#### [Read More](data-monitoring.md)
+## Reanalysis Procedure
+1. **Weekly Review**
+   - Conduct a weekly review of transfer logs and monitoring alerts.
+   - Identify any recurring issues or patterns.
 
-### Alerting
+2. **Monthly Performance Report**
+   - Generate a monthly report detailing transfer success rates and other key metrics.
+   - Share the report with relevant stakeholders for feedback and review.
 
-#### Objective
-Ensure alerting systems work correctly and notify the right people.
+## Contact Information
+- **Monitoring Team Lead:** John Doe (john.doe@company.com)
+- **Support Desk:** support@company.com
+- **Emergency Contact:** 123-456-7890
 
-#### Overview
-Effective alerting is crucial for timely response to issues and maintaining service reliability. This page outlines the tasks, monitoring tools, and reanalysis procedures necessary to achieve this objective.
+## Documentation
+- [File Transfer Protocols](link-to-document)
+- [Monitoring Tools Setup Guide](link-to-document)
+- [Alert Configuration Instructions](link-to-document)
 
-#### [Read More](alerting.md)
-
-### Communication
-
-#### Objective
-Ensure sufficient communication for alerting the correct people about outages, improvements, and changes.
-
-#### Overview
-Clear and timely communication is essential for coordinating responses to issues and informing stakeholders about changes. This page outlines the tasks, tools, and reanalysis procedures necessary to achieve this objective.
-
-#### [Read More](communication.md)
-
-### Reporting
-
-#### Objective
-Provide statistical reporting for services, overall usage, and RAG status.
-
-#### Overview
-Accurate and comprehensive reporting helps in tracking performance and making informed decisions. This page outlines the tasks, tools, and reanalysis procedures necessary to achieve this objective.
-
-#### [Read More](reporting.md)
+## Conclusion
+Regular monitoring and prompt action on file transfer issues are vital for maintaining smooth operations. By following the tasks and procedures outlined on this page, we can ensure a high level of reliability and efficiency in our file transfer processes.
 
 ---
 
