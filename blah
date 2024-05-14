@@ -1,0 +1,116 @@
+# DMS Systems Monitoring and Improvement
+
+## Overview
+This document provides an overview of our monitoring and improvement efforts for our Document Management Systems (DMS), including OnDemand CMOD and Activestore. We focus on key areas such as file transfers, infrastructure, data monitoring, alerting, communication, and reporting. Each section includes detailed tasks, performance metrics, and reanalysis procedures to ensure continuous improvement.
+
+## RAG Status Summary
+| Topic                     | Status | Last Reviewed | Link                            |
+|---------------------------|--------|---------------|---------------------------------|
+| File Transfers (Monitoring) | 🟢 Green | YYYY-MM-DD    | [File Transfers (Monitoring)](#file-transfers-monitoring) |
+| Infrastructure (Monitoring) | 🟡 Amber | YYYY-MM-DD    | [Infrastructure (Monitoring)](#infrastructure-monitoring) |
+| Data (Monitoring)          | 🔴 Red   | YYYY-MM-DD    | [Data (Monitoring)](#data-monitoring) |
+| Alerting                   | 🟢 Green | YYYY-MM-DD    | [Alerting](#alerting) |
+| Communication              | 🟡 Amber | YYYY-MM-DD    | [Communication](#communication) |
+| Reporting                  | 🟢 Green | YYYY-MM-DD    | [Reporting](#reporting) |
+
+## Sections
+
+### File Transfers (Monitoring)
+- **Objective:** Ensure all file transfers are successfully sent and received.
+- **Status:** 🟢 Green
+- **Link:** [File Transfers (Monitoring)](#file-transfers-monitoring)
+
+### Infrastructure (Monitoring)
+- **Objective:** Ensure key servers, processes, and databases are operational and performing optimally.
+- **Status:** 🟡 Amber
+- **Link:** [Infrastructure (Monitoring)](#infrastructure-monitoring)
+
+### Data (Monitoring)
+- **Objective:** Detect abnormalities, spikes, missing data, and ensure data reconciliation.
+- **Status:** 🔴 Red
+- **Link:** [Data (Monitoring)](#data-monitoring)
+
+### Alerting
+- **Objective:** Ensure alerting systems work correctly and notify the right people.
+- **Status:** 🟢 Green
+- **Link:** [Alerting](#alerting)
+
+### Communication
+- **Objective:** Ensure sufficient communication for alerting the correct people about outages, improvements, and changes.
+- **Status:** 🟡 Amber
+- **Link:** [Communication](#communication)
+
+### Reporting
+- **Objective:** Provide statistical reporting for services, overall usage, and RAG status.
+- **Status:** 🟢 Green
+- **Link:** [Reporting](#reporting)
+
+---
+
+## Detailed Sections
+
+### File Transfers (Monitoring)
+
+#### Objective
+Ensure all file transfers are successfully sent and received.
+
+#### Overview
+Effective monitoring of file transfers is crucial for maintaining data integrity and operational efficiency. This page outlines the tasks, monitoring tools, and reanalysis procedures necessary to achieve this objective.
+
+#### [Read More](file-transfers-monitoring.md)
+
+### Infrastructure (Monitoring)
+
+#### Objective
+Ensure key servers, processes, and databases are operational and performing optimally.
+
+#### Overview
+Maintaining the health and performance of our infrastructure is critical to delivering reliable services. This page outlines the tasks, monitoring tools, and reanalysis procedures necessary to achieve this objective.
+
+#### [Read More](infrastructure-monitoring.md)
+
+### Data (Monitoring)
+
+#### Objective
+Detect abnormalities, spikes, missing data, and ensure data reconciliation.
+
+#### Overview
+Monitoring data for inconsistencies and anomalies is essential for maintaining data integrity. This page outlines the tasks, monitoring tools, and reanalysis procedures necessary to achieve this objective.
+
+#### [Read More](data-monitoring.md)
+
+### Alerting
+
+#### Objective
+Ensure alerting systems work correctly and notify the right people.
+
+#### Overview
+Effective alerting is crucial for timely response to issues and maintaining service reliability. This page outlines the tasks, monitoring tools, and reanalysis procedures necessary to achieve this objective.
+
+#### [Read More](alerting.md)
+
+### Communication
+
+#### Objective
+Ensure sufficient communication for alerting the correct people about outages, improvements, and changes.
+
+#### Overview
+Clear and timely communication is essential for coordinating responses to issues and informing stakeholders about changes. This page outlines the tasks, tools, and reanalysis procedures necessary to achieve this objective.
+
+#### [Read More](communication.md)
+
+### Reporting
+
+#### Objective
+Provide statistical reporting for services, overall usage, and RAG status.
+
+#### Overview
+Accurate and comprehensive reporting helps in tracking performance and making informed decisions. This page outlines the tasks, tools, and reanalysis procedures necessary to achieve this objective.
+
+#### [Read More](reporting.md)
+
+---
+
+*Prepared by: Your Name*  
+*Date: YYYY-MM-DD*  
+*Department: IT Services*
