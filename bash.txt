@@ -1,6 +1,3 @@
-Here's the Confluence source code for your Linux tutorial:
-
-```confluence
 h1. Linux Tutorial for Java Developers
 
 h2. 1. Why Linux and Bash
@@ -41,7 +38,7 @@ Basic components of Unix-like systems (including Linux):
 ** "Everything is a file" philosophy
 ** Organized in a hierarchical structure
 ** Root directory (/) at the top
-** Examples of "files":
+*** Examples of "files":
 *** Regular files
 *** Directories
 *** Device files (e.g., /dev/null)
@@ -131,83 +128,31 @@ find . -name "file1.txt"
 # Set read, write, and execute permissions for owner on file1.txt 
 chmod u+rwx file1.txt 
 
-# Change the owner of file1.txt to user2 
-chown user2 file1.txt 
+# Change the owner of file1.txt to user2 chown user2 file1.
+txt             {cod e }
 
-# Connect to remotehost.com using SSH ssh remotehost.com # Copy file1.
-scp local to remotehost.com scp user@remotehost.com:/path/to/destination/
-
-# List all processes running on the system ps aux # Display real-time process information top # Terminate process with PID 12345 kill 12345 {code}
+connect remotehost ssh remotehost com copy local remotehost scp user@remotehost path destination list processes running system ps aux display real-time process information top terminate process PID kill {code}
 
 h3. Intermediate Commands
 
 * find: Search for files and directories {code:bash} find /path/to/search -name "*.java" # Find all Java files find . -type d -name "test" # Find directories named "test" {code}
 
-* grep: Search for patterns in files {code:bash} grep "public class" *.java # Find "public class" in all Java files grep -r "TODO" . # Recursively search for "TODO" in current directory {code}
+* grep: Search for patterns in files {code:bash} grep public class *.java # Find public class in all Java files grep r TODO . # Recursively search TODO current directory {code}
 
 h3. Advanced Commands
 
-* awk: Text processing and data extraction {code:bash} awk '{print $1, $3}' file.txt # Print 1st and 3rd columns awk '/pattern/ {print $0}' file.txt # Print lines matching pattern {code}
+* awk: Text processing data extraction {code:bash} awk print $ print columns awk pattern print lines matching pattern {cod e }
 
-* sed: Stream editor for filtering and transforming text {code:bash} sed 's/old/new/g' file.txt # Replace "old" with "new" globally sed '1d' file.txt # Delete the first line {code}
+sed Stream editor filtering transforming text sed s old new globally sed d delete first line {cod e }
 
-h2. 4. Command Line
+4 Command Line Pipes allow send output command input another.
 
-h3. Pipes (|)
+Example cat log txt grep ERROR wc count ERROR occurrences log fil e Redirection allows control input output streams Examples echo Hello World output Write overwrite echo New line append sort unsorted sorted Alias Create shortcuts frequently used commands.
 
-Pipes allow you to send the output of one command as input to another.
+Example alias ll ls alias update sudo update sudo upgrade saved bashrc bash_profile alias available next time logon.
 
-Example: {code:bash} cat log.txt | grep "ERROR" | wc -l # Count ERROR occurrences in log file {code}
+5 Bash Programming Basics Loops Conditions Loops For Loop bash echo Number Iterate files bash echo Processing Add processing logic While Loop count while count le echo Count Conditionals If Statemen t if config properties then Config exists else Config found fi Case Statement Enter fruit name read fruit case apple It's apple banana plantain banana plantain Unknown fruit esac Shell Brace Expansion Brace Expansion Brace expansion allows generate arbitrary strings.
 
-h3. Redirection (>, >>, <)
+create multiple text patterns single pattern containing braces {} Examples Simple Expansion bash ech o Output Range Expansion Combining Text Nested Expansion Good Practices Quote variables Always quote variables prevent word splitting globbing bash filenam My Document copy filenam path destina tion Avoid mr Comments Add comments explain logic Check Java installed print version else Java installed fi Use functions reusable code Group related commands functions better organisation reusability.
 
-Redirection allows you to control input and output streams.
-
-Examples: {code:bash} echo "Hello, World!" > output.txt # Write to file (overwrite) echo "New line" >> output.txt # Append to file sort < unsorted.txt > sorted.tx t                 {cod e }
-
-### Alias Create shortcuts for frequently used commands.
-
-Example: ```bash alias ll='ls -alF' alias update='sudo apt update && sudo apt upgrade -y' ```
-
-These can be saved in ~/.bashrc or ~/.bash_profile so the alias is available next time you logon.
-
-## 5. Bash Programming Basics (Loops and Conditions)
-
-### Loops
-
-#### For Loop ```bash for i in {1..5} do echo "Number: $i" done
-
-Iterate over files ```bash for f ile i n *.java do echo "Processing $file"
-
-Add your processing logic here done ```
-
-#### While Loop ```bash count=1 while [ $count -le 5 ] do echo "Count: $count" ((count++)) done ```
-
-### Conditionals
-
-#### If Statement ```bash if [ -f config.properties then echo Config exists else Config not found fi ```
-
-#### Case Statement ```bash Enter fruit name read fruit case apple It's an apple ;; banana plantain It's a banana or plantain ;; Unknown fruit esac ```
-
-## 6. Shell Brace Expansion ### Brace Expansion in Bash Brace expansion in Bash allows you to generate arbitrary strings.
-
-It's used to create multiple text patterns from a single pattern containing braces {}.
-
-#### Examples:
-
-- **Simple Expansion:** ```bash echo abc Output abc ```
-
-- **Range Expansion:** ```bash echo Output ```
-
-- **Combining Text:** ```bash echofile...txt Output...txt```
-
-- **Nested Expansion:** ```bashechoab Output ab b b2```
-
-## Good Practices Quote variables Always quote your variables.
-
-to prevent word splitting globbing.
-
-``` bash filenam My Document copy filenam path destina tion Avoid Avoid mr Comments Add comments explain logic Check Java installed print version else Java installed fi Use functions reusable code Group related commands into functions better organisation reusability.
-
-``` bash function backup_file() local cp bak created Use meaningful variable names Choose descriptive names variables improve readability.
-```
+function backup_file local cp bak created meaningful variable names Choose descriptive names variables improve readability.
