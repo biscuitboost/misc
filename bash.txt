@@ -1,3 +1,6 @@
+Here's the Confluence source code for your Linux tutorial:
+
+```confluence
 h1. Linux Tutorial for Java Developers
 
 h2. 1. Why Linux and Bash
@@ -49,131 +52,104 @@ h2. 3. Useful Commands
 
 h3. Basic Commands
 
-* {{mv}}: Move or rename files and directories
+* mv: Move or rename files and directories 
 {code:bash}
-mv old_file.txt new_file.txt
-mv file.txt /path/to/destination/
+mv old_file.txt new_file.txt 
+mv file.txt /path/to/destination/ 
 {code}
 
-* {{cp}}: Copy files and directories
+* cp: Copy files and directories 
 {code:bash}
-cp source.txt destination.txt
-cp -r source_dir/ destination_dir/
+cp source.txt destination.txt 
+cp -r source_dir/ destination_dir/ 
 {code}
 
-* {{ls}}: List directory contents
-{code:bash}
-ls
-ls -l  # Long format
-ls -a  # Show hidden files
+* ls: List directory contents 
+{code:bash} 
+ls 
+ls -l  # Long format 
+ls -a  # Show hidden files 
 {code}
 
-h3. Other commands
+h4. Other commands 
 
 {code:bash}
-# List files and directories in the current directory
-ls
+# List files and directories in the current directory 
+ls 
 
-# Change to the home directory
-cd ~
+# Change to the home directory 
+cd ~ 
 
-# Display the current directory path
-pwd
+# Display the current directory path 
+pwd 
 
-# Copy file1.txt to directory /home/user/
-cp file1.txt /home/user/
+# Copy file1.txt to directory /home/user/ 
+cp file1.txt /home/user/ 
 
-# Rename file1.txt to newname.txt
-mv file1.txt newname.txt
+# Rename file1.txt to newname.txt 
+mv file1.txt newname.txt 
 
-# Remove file1.txt
-rm file1.txt
+# Remove file1.txt 
+rm file1.txt 
 
-# Create a new directory named myfolder
-mkdir myfolder
+# Create a new directory named myfolder 
+mkdir myfolder 
 
-# Remove the empty directory myfolder
-rmdir myfolder
+# Remove the empty directory myfolder 
+rmdir myfolder 
 
-# Create a new empty file named myfile.txt
-touch myfile.txt
+# Create a new empty file named myfile.txt 
+touch myfile.txt 
 
-# Display the contents of file1.txt
-cat file1.txt
+# Display the contents of file1.txt 
+cat file1.txt 
 
-# View the contents of file1.txt interactively
-less file1.txt
+# View the contents of file1.txt interactively 
+less file1.txt 
 
-# View the contents of file1.txt interactively (less common)
-more file1.txt
+# View the contents of file1.txt interactively (less common) 
+more file1.txt 
 
-# Display the first 10 lines of file1.txt
-head file1.txt
+# Display the first 10 lines of file1.txt 
+head file1.txt 
 
-# Display the last 10 lines of file1.txt
-tail file1.txt
+# Display the last 10 lines of file1.txt 
+tail file1.txt 
 
-# Print "Hello, World!"
-echo "Hello, World!"
+# Print "Hello, World!" 
+echo "Hello, World!" 
 
-# View the manual page for the ls command
-man ls
+# View the manual page for the ls command 
+man ls 
 
-# Search for "pattern" in file1.txt
-grep "pattern" file1.txt
+# Search for "pattern" in file1.txt 
+grep "pattern" file1.txt 
 
-# Find all files named "file1.txt" under the current directory
-find . -name "file1.txt"
+# Find all files named "file1.txt" under the current directory 
+find . -name "file1.txt" 
 
-# Set read, write, and execute permissions for owner on file1.txt
-chmod u+rwx file1.txt
+# Set read, write, and execute permissions for owner on file1.txt 
+chmod u+rwx file1.txt 
 
-# Change the owner of file1.txt to user2
-chown user2 file1.txt
+# Change the owner of file1.txt to user2 
+chown user2 file1.txt 
 
-# Connect to remotehost.com using SSH
-ssh remotehost.com
+# Connect to remotehost.com using SSH ssh remotehost.com # Copy file1.
+scp local to remotehost.com scp user@remotehost.com:/path/to/destination/
 
-# Copy file1.txt from local to remotehost.com
-scp file1.txt user@remotehost.com:/path/to/destination/
-
-# List all processes running on the system
-ps aux
-
-# Display real-time process information
-top
-
-# Terminate process with PID 12345
-kill 12345
-{code}
+# List all processes running on the system ps aux # Display real-time process information top # Terminate process with PID 12345 kill 12345 {code}
 
 h3. Intermediate Commands
 
-* {{find}}: Search for files and directories
-{code:bash}
-find /path/to/search -name "*.java"  # Find all Java files
-find . -type d -name "test"  # Find directories named "test"
-{code}
+* find: Search for files and directories {code:bash} find /path/to/search -name "*.java" # Find all Java files find . -type d -name "test" # Find directories named "test" {code}
 
-* {{grep}}: Search for patterns in files
-{code:bash}
-grep "public class" *.java  # Find "public class" in all Java files
-grep -r "TODO" .  # Recursively search for "TODO" in current directory
-{code}
+* grep: Search for patterns in files {code:bash} grep "public class" *.java # Find "public class" in all Java files grep -r "TODO" . # Recursively search for "TODO" in current directory {code}
 
 h3. Advanced Commands
 
-* {{awk}}: Text processing and data extraction
-{code:bash}
-awk '{print $1, $3}' file.txt  # Print 1st and 3rd columns
-awk '/pattern/ {print $0}' file.txt  # Print lines matching pattern
-{code}
+* awk: Text processing and data extraction {code:bash} awk '{print $1, $3}' file.txt # Print 1st and 3rd columns awk '/pattern/ {print $0}' file.txt # Print lines matching pattern {code}
 
-* {{sed}}: Stream editor for filtering and transforming text
-{code:bash}
-sed 's/old/new/g' file.txt  # Replace "old" with "new" globally
-sed '1d' file.txt  # Delete the first line
-{code}
+* sed: Stream editor for filtering and transforming text {code:bash} sed 's/old/new/g' file.txt # Replace "old" with "new" globally sed '1d' file.txt # Delete the first line {code}
 
 h2. 4. Command Line
 
@@ -181,118 +157,57 @@ h3. Pipes (|)
 
 Pipes allow you to send the output of one command as input to another.
 
-Example:
-{code:bash}
-cat log.txt | grep "ERROR" | wc -l  # Count ERROR occurrences in log file
-{code}
+Example: {code:bash} cat log.txt | grep "ERROR" | wc -l # Count ERROR occurrences in log file {code}
 
 h3. Redirection (>, >>, <)
 
 Redirection allows you to control input and output streams.
 
-Examples:
-{code:bash}
-echo "Hello, World!" > output.txt  # Write to file (overwrite)
-echo "New line" >> output.txt  # Append to file
-sort < unsorted.txt > sorted.txt  # Sort file contents
-{code}
+Examples: {code:bash} echo "Hello, World!" > output.txt # Write to file (overwrite) echo "New line" >> output.txt # Append to file sort < unsorted.txt > sorted.tx t                 {cod e }
 
-h3. Alias
+### Alias Create shortcuts for frequently used commands.
 
-Create shortcuts for frequently used commands.
+Example: ```bash alias ll='ls -alF' alias update='sudo apt update && sudo apt upgrade -y' ```
 
-Example:
-{code:bash}
-alias ll='ls -alF'
-alias update='sudo apt update && sudo apt upgrade -y'
-{code}
-These can be saved in {{~/.bashrc}} or {{~/.bash_profile}} so the alias is available next time you logon.
+These can be saved in ~/.bashrc or ~/.bash_profile so the alias is available next time you logon.
 
-h2. 5. Bash Programming Basics (Loops and Conditions)
+## 5. Bash Programming Basics (Loops and Conditions)
 
-h3. Loops
+### Loops
 
-h4. For Loop
-{code:bash}
-for i in {1..5}
-do
-   echo "Number: $i"
-done
+#### For Loop ```bash for i in {1..5} do echo "Number: $i" done
 
-# Iterate over files
-for file in *.java
-do
-   echo "Processing $file"
-   # Add your processing logic here
-done
-{code}
+Iterate over files ```bash for f ile i n *.java do echo "Processing $file"
 
-h4. While Loop
-{code:bash}
-count=1
-while [ $count -le 5 ]
-do
-   echo "Count: $count"
-   ((count++))
-done
-{code}
+Add your processing logic here done ```
 
-h3. Conditionals
+#### While Loop ```bash count=1 while [ $count -le 5 ] do echo "Count: $count" ((count++)) done ```
 
-h4. If Statement
-{code:bash}
-if [ -f "config.properties" ]
-then
-    echo "Config file exists"
-else
-    echo "Config file not found"
-fi
-{code}
+### Conditionals
 
-h4. Case Statement
-{code:bash}
-echo "Enter a fruit name:"
-read fruit
+#### If Statement ```bash if [ -f config.properties then echo Config exists else Config not found fi ```
 
-case $fruit in
-    "apple")
-        echo "It's an apple"
-        ;;
-    "banana"|"plantain")
-        echo "It's a banana or plantain"
-        ;;
-    *)
-        echo "Unknown fruit"
-        ;;
-esac
-{code}
+#### Case Statement ```bash Enter fruit name read fruit case apple It's an apple ;; banana plantain It's a banana or plantain ;; Unknown fruit esac ```
 
-h2. 6. Shell Brace Expansion
+## 6. Shell Brace Expansion ### Brace Expansion in Bash Brace expansion in Bash allows you to generate arbitrary strings.
 
-h3. Brace Expansion in Bash
+It's used to create multiple text patterns from a single pattern containing braces {}.
 
-Brace expansion in Bash allows you to generate arbitrary strings. It's used to create multiple text patterns from a single pattern containing braces {{{}}.
+#### Examples:
 
-h4. Examples:
+- **Simple Expansion:** ```bash echo abc Output abc ```
 
-# *Simple Expansion:*
-{code:bash}
-echo {a,b,c}
-# Output: a b c
-{code}
+- **Range Expansion:** ```bash echo Output ```
 
-# *Range Expansion:*
-{code:bash}
-echo {1..5}
-# Output: 1 2 3 4 5
-{code}
+- **Combining Text:** ```bash echofile...txt Output...txt```
 
-# *Combining Text:*
-{code:bash}
-echo file{1..3}.txt
-# Output: file1.txt file2.txt file3.txt
-{code}
+- **Nested Expansion:** ```bashechoab Output ab b b2```
 
-# *Nested Expansion:*
-{code:bash}
-echo {a,b}{1,
+## Good Practices Quote variables Always quote your variables.
+
+to prevent word splitting globbing.
+
+``` bash filenam My Document copy filenam path destina tion Avoid Avoid mr Comments Add comments explain logic Check Java installed print version else Java installed fi Use functions reusable code Group related commands into functions better organisation reusability.
+
+``` bash function backup_file() local cp bak created Use meaningful variable names Choose descriptive names variables improve readability.
+```
